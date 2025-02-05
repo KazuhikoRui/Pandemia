@@ -12,6 +12,7 @@ namespace SimModel
         {
             Simulator sim = new Simulator(1000000, 3650);
             sim.RunSimulation();
+            Console.WriteLine(sim.TotalPopulation);
         }
     }
 }

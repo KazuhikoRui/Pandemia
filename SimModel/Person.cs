@@ -5,18 +5,19 @@
         private const float _coefLostImmunity = 0.000017f; //Коэффициент потери иммунитета
 
         private string _gender; //Пол человека
-        private int _age; //Измеряем в днях (365д = 1г)
+        private int _age; //Измеряем в годах
         private float _initialImmunity; //Врожденный иммунитет
         private float _immunity; //Иммунитет
         private bool _totalImmunity; //Абсолютный иммунитет к вирусу
         private bool _isAlive; //Жив или мертв
 
         public int Age => _age;
+        public int MaxAge => 80;
         public string Gender => _gender;
         public float Immunity => _immunity;
         public bool TotalImmunity => _totalImmunity;
         public bool IsAlive => _isAlive;
-        public bool Status { get; set; }
+        public bool Status { get; set; } //Болен или не болен
 
         public Person(string Gender, int Age, float Immunity)
         {
@@ -33,19 +34,15 @@
         public void UpdateAge()
         {
             _age++;
-            if (Age >= 29200) Death();
+            if (Age >= MaxAge) Death();
             UpdateImmunity();
         }
-
         public void Death() => _isAlive = false;
-        public void CreateTotalImmunity()
-        {
-            _totalImmunity = true;
-        }
+        public void CreateTotalImmunity() => _totalImmunity = true;
         private void UpdateImmunity()
         {
             if (!_isAlive) return;
-            _immunity = _initialImmunity - _coefLostImmunity * _age;
+            _immunity = _initialImmunity - _coefLostImmunity * _age * 365;
         }
     }
 }

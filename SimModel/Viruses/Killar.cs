@@ -6,6 +6,9 @@
         {
 
         }
+
+        public override int AgeToInfect => 12;
+
         public override bool Death(Person person)
         {
             throw new System.NotImplementedException();
