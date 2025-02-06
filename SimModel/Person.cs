@@ -1,4 +1,8 @@
-﻿namespace SimModel
+﻿
+
+using SimModel.Utils;
+
+namespace SimModel
 {
     class Person
     {
@@ -10,6 +14,7 @@
         private float _immunity; //Иммунитет
         private bool _totalImmunity; //Абсолютный иммунитет к вирусу
         private bool _isAlive; //Жив или мертв
+        private int _friends;
 
         public int Age => _age;
         public int MaxAge => 80;
@@ -17,7 +22,9 @@
         public float Immunity => _immunity;
         public bool TotalImmunity => _totalImmunity;
         public bool IsAlive => _isAlive;
+        public int Friends => _friends;
         public bool Status { get; set; } //Болен или не болен
+        
 
         public Person(string Gender, int Age, float Immunity)
         {
@@ -26,6 +33,7 @@
             _initialImmunity = Immunity;
             _totalImmunity = false;
             _isAlive = true;
+            _friends = (int)Gaussian.RandNormal(3, 1);
 
             Status = false;
             UpdateImmunity();

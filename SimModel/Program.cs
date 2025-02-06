@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SimModel.Utils;
+using SimModel.Viruses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +10,13 @@ namespace SimModel
 {
     class Program
     {
+        private static Random rand = new Random();
         static void Main(string[] args)
         {
-            Simulator sim = new Simulator(1000000, 3650);
+            Virus virus = new Killar("Killar-86X", false, 0.3f, 0.001f); 
+            Simulator sim = new Simulator(1000000, 3650, virus);
             sim.RunSimulation();
-            Console.WriteLine(sim.TotalPopulation);
+            Console.WriteLine(sim.InfectedPpopulation());
         }
     }
 }

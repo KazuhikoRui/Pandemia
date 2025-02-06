@@ -1,6 +1,7 @@
 ﻿using SimModel.Viruses;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SimModel
 {
@@ -46,14 +47,14 @@ namespace SimModel
                         }
                         return false;
                     });
-                
-                //Заражаемость!
-                
+
+                Infection();
                 Mortality();
                 Birth();
             }
         }
-
+        public int InfectedPpopulation() =>_alive.FindAll((p) => (p.Status)).Count;
+            
         private void Mortality()
         {
             int mort = (int)Math.Round(_mortality * _alive.Count / 365);
@@ -74,13 +75,26 @@ namespace SimModel
         } 
         private void StartInfection()
         {
-            //Пусть 2% населения уже будут заражены.
-            //И желательно, чтобы больны были люди от N лет
-            // N необходимо указывать в вирусе
+            for (int i = 0; i < Math.Round(_alive.Count * 0.02); i++)
+            {
+                _alive.Find((p) => (p.Age >= _virus.AgeToInfect) && (!p.Status)).Status = true;
+            }
+            _alive = _alive.OrderBy(_ => rand.Next()).ToList();
         }
         private void Infection()
         {
-
+            var allInfected = _alive.FindAll((p) => p.Status);
+            foreach (Person p in allInfected)
+            {
+                for (int i = 0; i < Math.Round(p.Friends * 0.5); i++)
+                {
+                    Person meeting = _alive[rand.Next(0, _alive.Count)];
+                    if (!meeting.Status)
+                    {
+                        //Разыграть заражение
+                    }
+                }
+            }
         }
         private void Population(int Count)
         {
