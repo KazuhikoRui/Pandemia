@@ -11,6 +11,7 @@ namespace SimModel.Viruses
         }
 
         public override int AgeToInfect => 12;
+        public override int DayToRecover => 7;
 
         public override bool Death(Person person)
         {

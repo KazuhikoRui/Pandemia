@@ -29,12 +29,12 @@ namespace SimModel
             _virus = virus;
             Population(count);
         }
-
         public void RunSimulation()
         {
             StartInfection();
             for (int i = 1; i < _maxDays; i++)
             {
+                Console.WriteLine(i + 1);
                 _day = i;
                 if (i % 365 == 0)
                     _alive.RemoveAll((p) =>
@@ -86,13 +86,19 @@ namespace SimModel
             var allInfected = _alive.FindAll((p) => p.Status);
             foreach (Person p in allInfected)
             {
-                for (int i = 0; i < Math.Round(p.Friends * 0.5); i++)
+                if (p.UpdateInfection() == 0)
+                {
+                    if (!_virus.Reinfection)
+                        p.CreateTotalImmunity();
+                    continue;
+                }
+                if (rand.Next(101) <= 28) continue;
+
+                for (int i = 0; i < p.Friends / 2; i++)
                 {
                     Person meeting = _alive[rand.Next(0, _alive.Count)];
-                    if (!meeting.Status)
-                    {
-                        //Разыграть заражение
-                    }
+                    if (!meeting.Status && meeting.Age >= _virus.AgeToInfect && !meeting.TotalImmunity)
+                        _virus.Infect(meeting);
                 }
             }
         }

@@ -15,6 +15,7 @@ namespace SimModel
         private bool _totalImmunity; //Абсолютный иммунитет к вирусу
         private bool _isAlive; //Жив или мертв
         private int _friends;
+        private int _infectionDays;
 
         public int Age => _age;
         public int MaxAge => 80;
@@ -34,11 +35,18 @@ namespace SimModel
             _totalImmunity = false;
             _isAlive = true;
             _friends = (int)Gaussian.RandNormal(3, 1);
+            _infectionDays = 0;
 
             Status = false;
             UpdateImmunity();
         }
 
+        public int UpdateInfection()
+        {
+            if (!Status) _infectionDays = 0;
+            else _infectionDays++;
+            return _infectionDays;
+        }
         public void UpdateAge()
         {
             _age++;

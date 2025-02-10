@@ -23,6 +23,7 @@ namespace SimModel.Viruses
         public float Lethality { get => _lethality; }
 
         public abstract int AgeToInfect { get; }
+        public abstract int DayToRecover { get; }
 
         public abstract bool Death(Person person);
         public abstract void Infect(Person person);
