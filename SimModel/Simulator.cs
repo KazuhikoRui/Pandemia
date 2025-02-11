@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SimModel
 {
-    class Simulator
+    public class Simulator
     {
         private const double _mortality = (double) 14 / 1000;
         private const double _birthrate = (double) 8 / 1000;
@@ -17,9 +17,14 @@ namespace SimModel
         private int _maxDays;
         private int _day;
         private Virus _virus;
+        private int _illed;
+        private int _recovered;
         public int Days => _day;
 
         public int TotalPopulation => _alive.Count;
+        public int DeadPopulation => _dead.Count;
+        public int Illed => _illed;
+        public int Recovered => _recovered;
         public Simulator(int count, int maxDays, Virus virus)
         {
             _alive = new List<Person>();
@@ -27,6 +32,8 @@ namespace SimModel
             _day = 1;
             _maxDays = maxDays;
             _virus = virus;
+            _illed = 0;
+            _recovered = 0;
             Population(count);
         }
         public void RunSimulation()
@@ -34,7 +41,6 @@ namespace SimModel
             StartInfection();
             for (int i = 1; i < _maxDays; i++)
             {
-                Console.WriteLine(i + 1);
                 _day = i;
                 if (i % 365 == 0)
                     _alive.RemoveAll((p) =>
@@ -53,7 +59,6 @@ namespace SimModel
                 Birth();
             }
         }
-        public int InfectedPpopulation() =>_alive.FindAll((p) => (p.Status)).Count;
             
         private void Mortality()
         {
@@ -90,6 +95,7 @@ namespace SimModel
                 {
                     if (!_virus.Reinfection)
                         p.CreateTotalImmunity();
+                    _recovered++;
                     continue;
                 }
                 if (rand.Next(101) <= 28) continue;
@@ -98,7 +104,10 @@ namespace SimModel
                 {
                     Person meeting = _alive[rand.Next(0, _alive.Count)];
                     if (!meeting.Status && meeting.Age >= _virus.AgeToInfect && !meeting.TotalImmunity)
+                    {
                         _virus.Infect(meeting);
+                        _illed++;
+                    }
                 }
             }
         }

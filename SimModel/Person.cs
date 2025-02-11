@@ -4,7 +4,7 @@ using SimModel.Utils;
 
 namespace SimModel
 {
-    class Person
+    public class Person
     {
         private const float _coefLostImmunity = 0.000017f; //Коэффициент потери иммунитета
 
