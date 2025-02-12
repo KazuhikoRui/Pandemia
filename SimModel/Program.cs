@@ -15,10 +15,9 @@ namespace SimModel
             InputManager();
 
             Simulator sim = new Simulator(_population, _days, virus);
-            sim.RunSimulation();
-            /*Observer observer = new Observer(ref sim);
+            Observer observer = new Observer(ref sim);
             observer.OnEndSimulation += Results;
-            observer.Start();*/
+            observer.Start();
         }
 
         private static void InputManager()

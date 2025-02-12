@@ -16,14 +16,17 @@ namespace SimModel.Viruses
         public override bool Death(Person person)
         {
             if (rand.NextDouble() <= Lethality)
+            {
+                person.Death();
                 return true;
+            }
             return false;
         }
 
         public override void Infect(Person person)
         {
             if (person.Immunity <= Infection)
-                person.Status = true;
+                person.Infect();
         }
     }
 }

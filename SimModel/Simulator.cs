@@ -42,6 +42,15 @@ namespace SimModel
             for (int i = 1; i < _maxDays; i++)
             {
                 _day = i;
+                _alive.RemoveAll((p) =>
+                {
+                    if (!p.IsAlive)
+                    {
+                        _dead.Add(p);
+                        return true;
+                    }  
+                    return false;
+                });
                 if (i % 365 == 0)
                     _alive.RemoveAll((p) =>
                     {
@@ -82,7 +91,7 @@ namespace SimModel
         {
             for (int i = 0; i < Math.Round(_alive.Count * 0.02); i++)
             {
-                _alive.Find((p) => (p.Age >= _virus.AgeToInfect) && (!p.Status)).Status = true;
+                _alive.Find((p) => (p.Age >= _virus.AgeToInfect) && (!p.Status)).Infect();
             }
             _alive = _alive.OrderBy(_ => rand.Next()).ToList();
         }
@@ -91,10 +100,13 @@ namespace SimModel
             var allInfected = _alive.FindAll((p) => p.Status);
             foreach (Person p in allInfected)
             {
-                if (p.UpdateInfection() == 0)
+                if (_virus.Death(p)) continue;
+
+                if (p.UpdateInfection() == _virus.DayToRecover)
                 {
                     if (!_virus.Reinfection)
                         p.CreateTotalImmunity();
+                    p.Recover();
                     _recovered++;
                     continue;
                 }

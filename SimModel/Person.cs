@@ -16,6 +16,7 @@ namespace SimModel
         private bool _isAlive; //Жив или мертв
         private int _friends;
         private int _infectionDays;
+        private bool _status;
 
         public int Age => _age;
         public int MaxAge => 80;
@@ -24,7 +25,7 @@ namespace SimModel
         public bool TotalImmunity => _totalImmunity;
         public bool IsAlive => _isAlive;
         public int Friends => _friends;
-        public bool Status { get; set; } //Болен или не болен
+        public bool Status => _status; //Болен или не болен
         
 
         public Person(string Gender, int Age, float Immunity)
@@ -37,7 +38,7 @@ namespace SimModel
             _friends = (int)Gaussian.RandNormal(3, 1);
             _infectionDays = 0;
 
-            Status = false;
+            _status = false;
             UpdateImmunity();
         }
 
@@ -54,6 +55,8 @@ namespace SimModel
             UpdateImmunity();
         }
         public void Death() => _isAlive = false;
+        public void Infect() => _status = true;
+        public void Recover() => _status = false;
         public void CreateTotalImmunity() => _totalImmunity = true;
         private void UpdateImmunity()
         {
