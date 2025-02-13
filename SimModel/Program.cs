@@ -1,6 +1,5 @@
 ﻿using SimModel.Viruses;
 using System;
-using System.Threading;
 
 namespace SimModel
 {
@@ -10,7 +9,7 @@ namespace SimModel
         private static int _days;
         static void Main(string[] args)
         {
-            Virus virus = new Killar("Killar-86X", false, 0.3f, 0.001f);
+            Virus virus = VirusCollection.ChickenpoxVirus;
 
             InputManager();
 

@@ -2,16 +2,17 @@
 
 namespace SimModel.Viruses
 {
-    class Killar : Virus
+    class Tikotoko : Virus
     {
         private static Random _rand = new Random();
-        public Killar(string Code, bool Reinfection, float InfectionCoef, float LethalityCoef) : base(Code, Reinfection, InfectionCoef, LethalityCoef)
-        {
-            _lethality = LethalityCoef + (float)_rand.Next(-10, 10) / 100;
-        }
 
-        public override int AgeToInfect => 12;
-        public override int DayToRecover => 7;
+        public Tikotoko(string Code, bool Reinfection, float InfectionCoef, float LethalityCoef) : base(Code, Reinfection, InfectionCoef, LethalityCoef)
+        {
+            _lethality = LethalityCoef;
+        }
+        public override int AgeToInfect => 5;
+
+        public override int DayToRecover => 120;
 
         public override bool Death(Person person)
         {

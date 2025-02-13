@@ -50,8 +50,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulator.cs" />
     <Compile Include="Utils\Gaussian.cs" />
+    <Compile Include="Viruses\Chickenpox.cs" />
+    <Compile Include="Viruses\Hiroshima.cs" />
     <Compile Include="Viruses\Killar.cs" />
+    <Compile Include="Viruses\Tikotoko.cs" />
+    <Compile Include="Viruses\Vanilla228.cs" />
     <Compile Include="Viruses\Virus.cs" />
+    <Compile Include="Viruses\VirusCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
