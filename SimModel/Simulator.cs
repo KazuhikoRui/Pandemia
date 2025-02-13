@@ -67,8 +67,7 @@ namespace SimModel
                 Mortality();
                 Birth();
             }
-        }
-            
+        }   
         private void Mortality()
         {
             int mort = (int)Math.Round(_mortality * _alive.Count / 365);
@@ -92,6 +91,7 @@ namespace SimModel
             for (int i = 0; i < Math.Round(_alive.Count * 0.02); i++)
             {
                 _alive.Find((p) => (p.Age >= _virus.AgeToInfect) && (!p.Status)).Infect();
+                _illed++;
             }
             _alive = _alive.OrderBy(_ => rand.Next()).ToList();
         }
