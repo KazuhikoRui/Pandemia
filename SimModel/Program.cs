@@ -34,7 +34,7 @@ namespace SimModel
             Console.WriteLine($"Популяция: {simulator.TotalPopulation}");
             Console.WriteLine($"Кол-во смертей: {simulator.DeadPopulation}");
             Console.WriteLine($"Кол-во заражений: {simulator.Illed}");
-            Console.WriteLine($"Кол-во выздоровлений: {simulator.Recovered}");
+            Console.WriteLine($"Кол-во выздаровлений: {simulator.Recovered}");
             if (_days + 1 != simulator.Days)
                 Console.WriteLine($"Кол-во дней: {simulator.Days}");
         }
